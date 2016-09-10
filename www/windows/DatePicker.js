@@ -26,6 +26,7 @@ DatePicker.prototype.ANDROID_THEMES = {
 * show - true to show the ad, false to hide the ad
 */
 DatePicker.prototype.show = function(options, cb) {
+  options.date = new Date();
 	if (options.date) {
 		options.date = (options.date.getMonth() + 1) + "/" +
 		(options.date.getDate()) + "/" +
@@ -38,7 +39,9 @@ DatePicker.prototype.show = function(options, cb) {
 		date : '',
 		minDate: 0,
 		maxDate: 0,
-		clearText: 'Clear'
+		clearText: 'Clear',
+    okText:'OK',
+    cancelText:'Cancel'
 	};
 	for (var key in defaults) {
 		if (typeof options[key] !== "undefined") {
@@ -49,7 +52,7 @@ DatePicker.prototype.show = function(options, cb) {
 	var callback = function(message) {
 		if(message == -1){
 			cb(message);
-		} 
+		}
 		else {
 			var timestamp = Date.parse(message);
 			if(isNaN(timestamp) == false) {

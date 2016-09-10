@@ -24,27 +24,27 @@
 var cordova = require('cordova');
 
 module.exports = {
-	
+
     date: function (success, error, args) {
-		
+
 		module.exports.winJSDatePicker.show(success, error, "date", args[0]);
 
     },
 
     time: function (success, error, args) {
-		
+
 		module.exports.winJSDatePicker.show(success, error, "time", args[0]);
-		
+
     },
 
     datetime: function (success, error, args) {
-		
+
 		module.exports.winJSDatePicker.show(success, error, "datetime", args[0]);
 
     },
 
     winJSDatePicker : {
-	
+
         show: function(success, error, pickertype, options){
             /* options = {
             mode : 'date/time/datetime',
@@ -79,7 +79,7 @@ module.exports = {
             if (!options.maxDate) {
                 options.maxDate = new Date("2050-01-01T00:00:00");
             }
-            
+
             var buttonCSSText = "border: 3px solid white; background:#000; color:#FFF; border-radius:0; width: 90%; height: 90%; font-size: 2em;"
 
             var overlay = document.createElement("div");
@@ -160,7 +160,7 @@ module.exports = {
 
                 //not supported on phone 8.1
                 //var timePicker = new WinJS.UI.TimePicker(timePickerDiv, options);
-                
+
                 pickerDiv.appendChild(timePickerTable);
             }
 
@@ -202,7 +202,7 @@ module.exports = {
                             datePickerSelect.appendChild(option);
                         }
 
-                        
+
                     }
                     else if (i == 1) {
                         datePickerSelect.id = "winjsdatepickerMonth";
@@ -212,7 +212,7 @@ module.exports = {
                             var option = document.createElement("option");
                             option.textContent = m <=9 ? "0" + m : m;
                             option.value = m;
-                            
+
                             if (m == options.date.getMonth()+1) {
                                 option.setAttribute("selected", "selected");
                             }
@@ -311,21 +311,21 @@ module.exports = {
             overlayFooter.appendChild(rightCell);
 
             var cancelButton = document.createElement("button");
-            cancelButton.innerText = "Cancel";
+            cancelButton.innerText = options.cancelText;
             cancelButton.style.cssText = buttonCSSText;
 
             cancelButton.addEventListener("click", function(){
-			
+
                 overlay.parentElement.removeChild(overlay);
-			
+
             });
 
             rightCell.appendChild(cancelButton);
 
             var useButton = document.createElement("button");
-            useButton.innerText = "Use";
+            useButton.innerText = options.okText;
             useButton.style.cssText = buttonCSSText;
-		
+
             useButton.addEventListener("click", function () {
                 //read input and return Date Object
                 var year = document.getElementById("winjsdatepickerYear"),
@@ -346,7 +346,7 @@ module.exports = {
                 if (pickertype.indexOf("time") >= 0) {
                     dateTimeStr = dateTimeStr + "T" + (hours.value <= 9 ? "0" + hours.value : hours.value) + ":" + (minutes.value <= 9 ? "0" + minutes.value : minutes.value) + ":00";
                 }
-                
+
                 overlay.parentElement.removeChild(overlay);
                 success(dateTimeStr);
 
@@ -356,7 +356,7 @@ module.exports = {
             leftCell.appendChild(useButton);
 
             document.body.appendChild(overlay);
-            
+
         }
     }
 };
